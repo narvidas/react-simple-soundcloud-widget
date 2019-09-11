@@ -11,6 +11,7 @@ export interface ReactSimpleSoundCloudWidgetProps {
 	onPlay?: (info: InfoType) => void
 	onPause?: (info: InfoType) => void
 	onEnd?: (info: InfoType) => void
+	onError?: (error: any) => void
 	onReady?: () => void
 }
 
@@ -48,6 +49,7 @@ class ReactSimpleSoundCloudWidget extends React.Component<
 		this.internalWidget.unbind(win.SC.Widget.Events.PAUSE)
 		this.internalWidget.unbind(win.SC.Widget.Events.FINISH)
 		this.internalWidget.unbind(win.SC.Widget.Events.READY)
+		this.internalWidget.unbind(win.SC.Widget.Events.ERROR)
 	}
 
 	private setupWidget(widget: WidgetType): void {
@@ -57,6 +59,7 @@ class ReactSimpleSoundCloudWidget extends React.Component<
 		this.internalWidget.bind(win.SC.Widget.Events.PAUSE, this.props.onPause)
 		this.internalWidget.bind(win.SC.Widget.Events.FINISH, this.props.onEnd)
 		this.internalWidget.bind(win.SC.Widget.Events.READY, this.props.onReady)
+		this.internalWidget.bind(win.SC.Widget.Events.ERROR, this.props.onError)
 	}
 
 	private reloadWidget(): void {
